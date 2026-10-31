@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Catalogue public de livres lus alimenté par Supabase."
+    />
+    <title>Livres lus</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <p class="eyebrow">Catalogue public</p>
+        <h1>Livres lus</h1>
+      </header>
+
+      <main class="layout" aria-live="polite">
+        <section class="panel" aria-labelledby="form-title">
+          <h2 id="form-title">Ajouter un livre</h2>
+
+          <form id="book-form" novalidate>
+            <div class="field-group">
+              <label for="lecteur">Lecteur</label>
+              <input
+                id="lecteur"
+                name="lecteur"
+                type="text"
+                maxlength="100"
+                autocomplete="name"
+                required
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="titre">Titre</label>
+              <input
+                id="titre"
+                name="titre"
+                type="text"
+                maxlength="300"
+                required
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="auteur">Auteur</label>
+              <input
+                id="auteur"
+                name="auteur"
+                type="text"
+                maxlength="200"
+                required
+              />
+            </div>
+
+            <div class="field-group">
+              <label for="date_lecture">Date de lecture</label>
+              <input id="date_lecture" name="date_lecture" type="date" required />
+            </div>
+
+            <div id="form-status" class="status-box" role="status" aria-live="polite"></div>
+
+            <button type="submit" class="primary-button">Ajouter</button>
+          </form>
+        </section>
+
+        <section class="panel" aria-labelledby="catalogue-title">
+          <div class="panel-header">
+            <h2 id="catalogue-title">Catalogue</h2>
+            <div class="pagination" aria-label="Pagination du catalogue">
+              <button id="prev-page" type="button" class="secondary-button" aria-label="Page précédente">
+                Précédent
+              </button>
+              <span id="page-indicator" aria-live="polite">Page 1</span>
+              <button id="next-page" type="button" class="secondary-button" aria-label="Page suivante">
+                Suivant
+              </button>
+            </div>
+          </div>
+
+          <div id="loading-state" class="state-box" aria-live="polite">Chargement du catalogue…</div>
+          <div id="empty-state" class="state-box hidden" aria-live="polite">
+            Aucun livre enregistré pour le moment.
+          </div>
+          <div id="error-state" class="state-box hidden" role="alert" aria-live="assertive"></div>
+
+          <div id="books-list" class="books-grid" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
