@@ -1,98 +1,104 @@
+
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Catalogue public de livres lus alimenté par Supabase."
-    />
-    <title>Livres lus</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="page-shell">
-      <header class="topbar">
-        <p class="eyebrow">Catalogue public</p>
-        <h1>Livres lus</h1>
-      </header>
-
-      <main class="layout" aria-live="polite">
-        <section class="panel" aria-labelledby="form-title">
-          <h2 id="form-title">Ajouter un livre</h2>
-
-          <form id="book-form" novalidate>
-            <div class="field-group">
-              <label for="lecteur">Lecteur</label>
-              <input
-                id="lecteur"
-                name="lecteur"
-                type="text"
-                maxlength="100"
-                autocomplete="name"
-                required
-              />
-            </div>
-
-            <div class="field-group">
-              <label for="titre">Titre</label>
-              <input
-                id="titre"
-                name="titre"
-                type="text"
-                maxlength="300"
-                required
-              />
-            </div>
-
-            <div class="field-group">
-              <label for="auteur">Auteur</label>
-              <input
-                id="auteur"
-                name="auteur"
-                type="text"
-                maxlength="200"
-                required
-              />
-            </div>
-
-            <div class="field-group">
-              <label for="date_lecture">Date de lecture</label>
-              <input id="date_lecture" name="date_lecture" type="date" required />
-            </div>
-
-            <div id="form-status" class="status-box" role="status" aria-live="polite"></div>
-
-            <button type="submit" class="primary-button">Ajouter</button>
-          </form>
-        </section>
-
-        <section class="panel" aria-labelledby="catalogue-title">
-          <div class="panel-header">
-            <h2 id="catalogue-title">Catalogue</h2>
-            <div class="pagination" aria-label="Pagination du catalogue">
-              <button id="prev-page" type="button" class="secondary-button" aria-label="Page précédente">
-                Précédent
-              </button>
-              <span id="page-indicator" aria-live="polite">Page 1</span>
-              <button id="next-page" type="button" class="secondary-button" aria-label="Page suivante">
-                Suivant
-              </button>
-            </div>
-          </div>
-
-          <div id="loading-state" class="state-box" aria-live="polite">Chargement du catalogue…</div>
-          <div id="empty-state" class="state-box hidden" aria-live="polite">
-            Aucun livre enregistré pour le moment.
-          </div>
-          <div id="error-state" class="state-box hidden" role="alert" aria-live="assertive"></div>
-
-          <div id="books-list" class="books-grid" aria-live="polite"></div>
-        </section>
-      </main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notre bibliothèque familiale</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <p class="eyebrow">BIBLIOTHÈQUE FAMILIALE</p>
+      <h1>Nos lectures</h1>
+      <p>Les livres que nous avons lus, aimés et découverts.</p>
     </div>
+  </header>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
-  </body>
+  <main class="container">
+    <section class="panel">
+      <h2>Ajouter un livre</h2>
+      <form id="book-form">
+        <div class="form-grid">
+          <label>
+            Lecteur
+            <select id="lecteur" required>
+              <option value="">Choisir un lecteur</option>
+              <option>François-Xavier</option>
+              <option>Hélène</option>
+              <option>Albertine</option>
+              <option>Gabriel</option>
+              <option>Léopold</option>
+              <option>Théophile</option>
+            </select>
+          </label>
+
+          <label>
+            Titre
+            <input id="titre" type="text" maxlength="300"
+                   placeholder="Titre du livre" required>
+          </label>
+
+          <label>
+            Auteur
+            <input id="auteur" type="text" maxlength="200"
+                   placeholder="Nom de l'auteur" required>
+          </label>
+
+          <label>
+            Date de lecture
+            <input id="date_lecture" type="date" required>
+          </label>
+        </div>
+
+        <button id="submit-button" type="submit">
+          Ajouter à la bibliothèque
+        </button>
+        <p id="form-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Les livres lus</h2>
+        <span id="book-count"></span>
+      </div>
+
+      <div class="filters">
+        <label>
+          Rechercher
+          <input id="search" type="search"
+                 placeholder="Titre ou auteur">
+        </label>
+
+        <label>
+          Filtrer par lecteur
+          <select id="filter-reader">
+            <option value="">Tous les lecteurs</option>
+            <option>François-Xavier</option>
+            <option>Hélène</option>
+            <option>Albertine</option>
+            <option>Gabriel</option>
+            <option>Léopold</option>
+            <option>Théophile</option>
+          </select>
+        </label>
+      </div>
+
+      <p id="list-message" role="status" aria-live="polite"></p>
+      <div id="book-list" class="book-list"></div>
+
+      <div class="pagination">
+        <button id="previous" type="button">Précédent</button>
+        <span id="page-info"></span>
+        <button id="next" type="button">Suivant</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Notre bibliothèque familiale</footer>
+</body>
 </html>
