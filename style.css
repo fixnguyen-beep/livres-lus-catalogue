@@ -1,0 +1,164 @@
+
+:root {
+  --cream: #f7f4ed;
+  --white: #fffefa;
+  --green: #344936;
+  --ink: #282c24;
+  --muted: #77756c;
+  --border: #e4ded2;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+header {
+  background: var(--green);
+  color: white;
+  padding: 55px 0;
+}
+
+.eyebrow {
+  font: 11px Arial, sans-serif;
+  letter-spacing: 3px;
+  opacity: .8;
+}
+
+h1 {
+  font-size: clamp(36px, 6vw, 60px);
+  font-weight: normal;
+  margin: 10px 0;
+}
+
+h2 {
+  font-size: 27px;
+  font-weight: normal;
+  margin: 0 0 22px;
+}
+
+main { padding-top: 30px !important; }
+
+.panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 25px;
+}
+
+.form-grid, .filters {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font: 13px Arial, sans-serif;
+  color: var(--muted);
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d8d2c6;
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  font: 15px Arial, sans-serif;
+}
+
+button {
+  padding: 13px 20px;
+  background: var(--green);
+  color: white;
+  border: 0;
+  border-radius: 6px;
+  font: 14px Arial, sans-serif;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) { opacity: .85; }
+button:disabled { opacity: .4; cursor: default; }
+
+#submit-button { margin-top: 22px; }
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+#book-count {
+  color: var(--muted);
+  font: 13px Arial, sans-serif;
+}
+
+.filters { margin-bottom: 22px; }
+
+.book {
+  padding: 19px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.book h3 {
+  font-size: 21px;
+  font-weight: normal;
+  margin: 0 0 4px;
+}
+
+.book .author {
+  color: var(--muted);
+  margin: 0 0 9px;
+}
+
+.book .meta {
+  font: 12px Arial, sans-serif;
+  color: var(--green);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 25px;
+}
+
+#page-info, #form-message, #list-message {
+  font: 13px Arial, sans-serif;
+}
+
+#form-message, #list-message {
+  min-height: 18px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 30px;
+}
+
+@media (max-width: 650px) {
+  .form-grid, .filters {
+    grid-template-columns: 1fr;
+  }
+  .panel { padding: 20px; }
+  header { padding: 35px 0; }
+}
